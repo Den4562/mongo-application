@@ -28,6 +28,5 @@ async function bootstrap() {
 
   console.log(`🚀 Server: http://localhost:3000`);
   console.log(`📚 Swagger: http://localhost:3000/api/docs`);
-  console.log(`📦 Users API: http://localhost:3000/api/users`);
 }
 bootstrap();

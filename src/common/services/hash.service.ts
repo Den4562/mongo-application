@@ -1,4 +1,3 @@
-// src/common/services/hash.service.ts
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 

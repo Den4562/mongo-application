@@ -1,4 +1,3 @@
-// src/app.module.ts
 import { Module, OnModuleInit } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule, InjectConnection } from '@nestjs/mongoose';
@@ -31,21 +30,19 @@ export class AppModule implements OnModuleInit {
 
   async onModuleInit() {
     if (process.env.NODE_ENV !== 'production') {
-      console.log('🔄 Syncing database indexes...');
-
       const models = this.connection.modelNames();
 
       for (const modelName of models) {
         try {
           const model = this.connection.model(modelName);
           await model.syncIndexes();
-          console.log(`✅ Synced indexes for ${modelName}`);
         } catch (error) {
-          console.error(`❌ Error syncing ${modelName}:`, error.message);
+          console.error(
+            `Error syncing indexes for ${modelName}:`,
+            error.message,
+          );
         }
       }
-
-      console.log('✅ Database sync completed!');
     }
   }
 }
