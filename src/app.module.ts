@@ -11,14 +11,23 @@ import { CommonModule } from './common/common.module';
     ConfigModule.forRoot({
       isGlobal: true,
       load: [databaseConfig],
+      envFilePath: '.env',
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        uri: configService.get<string>('database.uri'),
-        autoIndex: process.env.NODE_ENV !== 'production',
-        autoCreate: true,
-      }),
+      useFactory: (configService: ConfigService) => {
+        const uri = configService.get<string>('database.uri');
+
+        if (!uri) {
+          throw new Error('Database URI is not configured.');
+        }
+
+        return {
+          uri,
+          autoIndex: process.env.NODE_ENV !== 'production',
+          autoCreate: true,
+        };
+      },
       inject: [ConfigService],
     }),
     CommonModule,

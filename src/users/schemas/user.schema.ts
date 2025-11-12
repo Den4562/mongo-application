@@ -5,7 +5,6 @@ export type UserDocument = HydratedDocument<User>;
 
 @Schema({ timestamps: true })
 export class User {
-  // ⭐ ДОДАЙ це поле
   _id?: Types.ObjectId;
 
   @Prop({
